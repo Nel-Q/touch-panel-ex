@@ -1,0 +1,13 @@
+.Footer{
+    background-color: black;
+    display: flex;
+    gap: 20px;
+}
+.PgmVolumeContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.PgmVolume{
+    display: flex;
+}

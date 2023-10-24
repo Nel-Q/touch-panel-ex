@@ -1,0 +1,25 @@
+:root{
+    --bg:rgb(104, 076, 150);
+  }
+  
+.StartPage{
+    background-color: var(--bg);
+    color: white;
+  }
+.schoolText{
+    font-size: 100px;
+    text-align: center;
+    margin-top: 80px;
+    padding: 20px;
+  }
+  .classNumber{
+    font-size: 20px;
+    text-align: center;
+    margin-top: 50px;
+  }
+  .startText{
+    font-size: 20px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 50px;
+  }
