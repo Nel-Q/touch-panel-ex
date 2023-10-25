@@ -29,18 +29,21 @@ function Footer() {
   
     const programShutOff = () => {
         closeModal()
+        CrComLib.publishEvent("b", "5", true);
         window.location.href = './startPage.js'
         console.log("program shut off")
     }
     const increaseVolume = () => {
         setSliderValue((prevValue) => prevValue + 1);
         CrComLib.publishEvent("b", "22", true);
+        CrComLib.publishEvent("b", "22", false);
         console.log('volume increased')
 
     }
     const decreaseVolume = () => {
         setSliderValue((prevValue) => prevValue - 1);
         CrComLib.publishEvent("b", "21", true);
+        CrComLib.publishEvent("b", "21", false);
         console.log('volume decreased')
     }
     const handleSliderChange = (event, newValue) => {
@@ -60,7 +63,7 @@ function Footer() {
     }
     return(
         <div className="Footer">
-            <Button onClick={openModal} color="primary">
+            <Button onClick={openModal} color="error" size="large">
                 <PowerSettingsNewIcon fontSize="large" color="red" />
             </Button>
             <Dialog open={isModalOpen} onClose={closeModal}>
