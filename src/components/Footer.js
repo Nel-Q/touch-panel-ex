@@ -27,7 +27,6 @@ function Footer() {
       setIsModalOpen(false);
     };
   
-   
     const programShutOff = () => {
         closeModal()
         window.location.href = './startPage.js'
@@ -61,7 +60,7 @@ function Footer() {
     }
     return(
         <div className="Footer">
-            <Button onClick={openModal}>
+            <Button onClick={openModal} color="primary">
                 <PowerSettingsNewIcon fontSize="large" color="red" />
             </Button>
             <Dialog open={isModalOpen} onClose={closeModal}>
