@@ -4,24 +4,39 @@ import Header from './Header';
 import './mainPage.css'
 import LaptopIcon from '@mui/icons-material/Laptop';
 import Button from '@mui/material/Button';
+import TabletMacOutlinedIcon from '@mui/icons-material/TabletMacOutlined';
 import { useState } from "react";
 import Footer from './Footer';
 
 function MainPage() {
     const [inputSelected, setInputSelected] = useState('');
-    const laptopSelected = () => {
-        setInputSelected('laptop')
-        CrComLib.publishEvent("b", 12, true);
-        console.log('laptop selected')
+    
+    const handleInputSelected =(joinNumber) => {
+        if (joinNumber !== inputSelected) {
+            if (inputSelected === ''){
+                setInputSelected(joinNumber);
+                CrComLib.publishEvent('b', joinNumber, true);
+                console.log("signal sent to join number:" + `${joinNumber}`)
+            } else {
+                CrComLib.publishEvent('b', inputSelected, false);
+                setInputSelected(joinNumber);
+                CrComLib.publishEvent('b', joinNumber, true);
+                console.log("signal sent to join number:" + `${joinNumber}`)
+            }
+        }
+        
     }
     return(
         <div className="mainPage">
             <Header />
             <main>
-                
-                <Button className="laptop" onClick={laptopSelected} variant='container' color='primary' >
-                    <LaptopIcon fontSize='large' className='icon' style={{ marginRight: 8 }}/>
+                <Button className="input" onClick={() => handleInputSelected('12')} variant='container' color='primary' >
+                    <LaptopIcon sx={{fontSize:150}} className='icon' style={{ marginRight: 8 }}/>
                     <p className='title'>Laptop</p>
+                </Button>
+                <Button className='input' onClick={() => handleInputSelected('13')} variant='container' color='primary'>
+                    <TabletMacOutlinedIcon sx={{fontSize:150}}  className='icon' style={{ marginRight: 8 }}/>
+                    <p className='title'>Wireless</p>
                 </Button>
             </main>
             <Footer />

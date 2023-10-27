@@ -12,12 +12,14 @@ function StartPage({ onInitialPageClick }) {
       console.log("Signal sent to processor");
     }
   };
+  const classRoom = CrComLib.subscribeState('s','o5', true);
+  console.log(typeof(classRoom))
 
   return (
     <div onClick={handleClick} className="StartPage">
         <Header/>
         <div className="schoolText">Northwestern</div>
-        <div className="classNumber">Class PlaceHolder</div>
+        <div className="classNumber">{classRoom}</div>
         <div className="startText">Touch Screen to Start</div>
     </div>
   );
