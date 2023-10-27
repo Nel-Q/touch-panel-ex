@@ -11,7 +11,7 @@ function MainPage() {
     const [inputSelected, setInputSelected] = useState('');
     const laptopSelected = () => {
         setInputSelected('laptop')
-        CrComLib.publishEvent("b", 12, true);
+        CrComLib.publishEvent("b", '12', true);
         console.log('laptop selected')
     }
     return(

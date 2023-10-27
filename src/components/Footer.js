@@ -28,9 +28,9 @@ function Footer() {
     };
   
     const programShutOff = () => {
-        closeModal()
+        closeModal();
+        window.location.href = './startPage.js';
         CrComLib.publishEvent("b", "5", true);
-        window.location.href = './startPage.js'
         console.log("program shut off")
     }
     const increaseVolume = () => {
