@@ -36,14 +36,14 @@ function Footer() {
     const increaseVolume = () => {
         setSliderValue((prevValue) => prevValue + 1);
         CrComLib.publishEvent("b", "22", true);
-        CrComLib.publishEvent("b", "22", false);
+        // CrComLib.publishEvent("b", "22", false);
         console.log('volume increased')
 
     }
     const decreaseVolume = () => {
         setSliderValue((prevValue) => prevValue - 1);
         CrComLib.publishEvent("b", "21", true);
-        CrComLib.publishEvent("b", "21", false);
+        // CrComLib.publishEvent("b", "21", false);
         console.log('volume decreased')
     }
     const handleSliderChange = (event, newValue) => {
