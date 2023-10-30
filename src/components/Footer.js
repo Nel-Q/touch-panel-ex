@@ -18,7 +18,7 @@ function Footer() {
     const [isMuted, setIsMuted] = useState(false);
     const [sliderValue, setSliderValue] = useState(50);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const initialValue = CrComLib.subscribeState('n','1', true);
     const openModal = () => {
       setIsModalOpen(true);
     };
@@ -30,19 +30,19 @@ function Footer() {
     const programShutOff = () => {
         closeModal();
         window.location.href = './startPage.js';
-        CrComLib.publishEvent("b", "5", true);
+        CrComLib.publishEvent('b', '30', true);
         console.log("program shut off")
     }
     const increaseVolume = () => {
         setSliderValue((prevValue) => prevValue + 1);
-        CrComLib.publishEvent("b", "22", true);
+        CrComLib.publishEvent('b', '22', true);
         // CrComLib.publishEvent("b", "22", false);
         console.log('volume increased')
 
     }
     const decreaseVolume = () => {
         setSliderValue((prevValue) => prevValue - 1);
-        CrComLib.publishEvent("b", "21", true);
+        CrComLib.publishEvent('b', '21', true);
         // CrComLib.publishEvent("b", "21", false);
         console.log('volume decreased')
     }
@@ -54,10 +54,10 @@ function Footer() {
     const toggleMute = () => {
         setIsMuted((prevIsMuted) => !(prevIsMuted));
         if (isMuted) {
-            CrComLib.publishEvent("b", "20", false);
+            CrComLib.publishEvent('b', '20', false);
             console.log('program unmuted')
         } else{
-            CrComLib.publishEvent("b", "20", true);
+            CrComLib.publishEvent('b', '20', true);
             console.log('program muted')
         }
     }
@@ -88,12 +88,12 @@ function Footer() {
                     <Button onClick={toggleMute}>
                         {isMuted ?<VolumeOffSharpIcon/> : <VolumeOffOutlinedIcon />}
                     </Button>
-                    <Button onClick={decreaseVolume}>
+                    <Button onClick={decreaseVolume} fontSize="large">
                         <RemoveIcon />
                     </Button>
                     <Slider 
-                        sx={{width:80}}
-                        value={sliderValue}
+                        sx={{width:100}}
+                        value={() => setSliderValue(initialValue)}
                         onChange={handleSliderChange}/>
                         
                     <Button onClick={increaseVolume}>
