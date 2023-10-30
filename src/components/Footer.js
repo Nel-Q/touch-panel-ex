@@ -28,22 +28,24 @@ function Footer() {
     };
   
     const programShutOff = () => {
-        closeModal()
-        CrComLib.publishEvent("b", "5", true);
+        window.location.href = './startPage.js'
+        closeModal();
+        CrComLib.publishEvent('b', '30', true);
+        CrComLib.publishEvent('b', '30', false);
         window.location.href = './startPage.js'
         console.log("program shut off")
     }
     const increaseVolume = () => {
         setSliderValue((prevValue) => prevValue + 1);
-        CrComLib.publishEvent("b", "22", true);
-        CrComLib.publishEvent("b", "22", false);
+        CrComLib.publishEvent('b', '22', true);
+        CrComLib.publishEvent('b', '22', false);
         console.log('volume increased')
 
     }
     const decreaseVolume = () => {
         setSliderValue((prevValue) => prevValue - 1);
-        CrComLib.publishEvent("b", "21", true);
-        CrComLib.publishEvent("b", "21", false);
+        CrComLib.publishEvent('b', '21', true);
+        CrComLib.publishEvent('b', '21', false);
         console.log('volume decreased')
     }
     const handleSliderChange = (event, newValue) => {
@@ -54,10 +56,10 @@ function Footer() {
     const toggleMute = () => {
         setIsMuted((prevIsMuted) => !(prevIsMuted));
         if (isMuted) {
-            CrComLib.publishEvent("b", "20", false);
+            CrComLib.publishEvent('b','20', false);
             console.log('program unmuted')
         } else{
-            CrComLib.publishEvent("b", "20", true);
+            CrComLib.publishEvent('b', '20', true);
             console.log('program muted')
         }
     }
