@@ -8,11 +8,11 @@ function StartPage({ onInitialPageClick }) {
     if (!event.target.classList.contains('startText')) {
       // Trigger the click event for the initial page
       onInitialPageClick();
-      CrComLib.publishEvent('b',"1", true);
+      CrComLib.publishEvent('b','1', true);
       console.log("Signal sent to processor");
     }
   };
-  const classRoom = CrComLib.subscribeState('s','o5', true);
+  const classRoom = CrComLib.subscribeState('s','1', true);
   console.log(typeof(classRoom))
 
   return (
