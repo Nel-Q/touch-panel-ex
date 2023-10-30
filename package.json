@@ -23,7 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:archive":"ch5-cli archive -p touch-panel-app -P samplesource=ch5-react -d build -o dist",
+    "build:archive":"ch5-cli archive -p touch-panel-app-master -P samplesource=ch5-react -d build -o dist",
     "build:onestep": "npm run build && npm run build:archive",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
