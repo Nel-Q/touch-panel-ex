@@ -1,25 +1,28 @@
 import React from 'react';
 import * as CrComLib from "@crestron/ch5-crcomlib";
 import Header from './Header';
+import { useCrestronSubscribeSerial, useCrestronPublishDigital} from "@norgate-av/react-crestron-ch5-hooks";
 import './StartPage.css'
 
 function StartPage({ onInitialPageClick }) {
+  const [startSignal] = useCrestronPublishDigital('1');
+  const [classRoom] = useCrestronSubscribeSerial('1');
   const handleClick = (event) => {
     if (!event.target.classList.contains('startText')) {
       // Trigger the click event for the initial page
       onInitialPageClick();
-      CrComLib.publishEvent('b','1', true);
+      startSignal.setValue(true);
       console.log("Signal sent to processor");
     }
   };
-  const classRoom = CrComLib.subscribeState('s','1', true);
+  
   console.log(typeof(classRoom))
 
   return (
     <div onClick={handleClick} className="StartPage">
         <Header/>
         <div className="schoolText">Northwestern</div>
-        <div className="classNumber">{classRoom}</div>
+        <div className="classNumber">{classRoom.value}</div>
         <div className="startText">Touch Screen to Start</div>
     </div>
   );

@@ -13,11 +13,18 @@ import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import VolumeOffSharpIcon from '@mui/icons-material/VolumeOffSharp';
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import { useState } from "react";
+import { useCrestronSubscribeAnalog, useCrestronSubscribeSerial, useCrestronPublishDigital, useCrestronPublishAnalog } from "@norgate-av/react-crestron-ch5-hooks";
 
 function Footer() {
+    const [initialVolume] = useCrestronSubscribeAnalog('1');
     const [isMuted, setIsMuted] = useState(false);
-    const [sliderValue, setSliderValue] = useState(50);
+    const [sliderValue, setSliderValue] = useState(initialVolume.value);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [muteSignal] = useCrestronPublishDigital('20');
+    const [shutSignal] = useCrestronPublishDigital('30');
+    const [volumePlusSignal] = useCrestronPublishDigital('22');
+    const [volumeMinSignal] = useCrestronPublishDigital('21');
+
 
     const openModal = () => {
       setIsModalOpen(true);
@@ -29,21 +36,19 @@ function Footer() {
   
     const programShutOff = () => {
         closeModal()
-        CrComLib.publishEvent('b', '30', true);
+        shutSignal.setValue(true);
         window.location.href = './startPage.js'
         console.log("program shut off")
     }
     const increaseVolume = () => {
         setSliderValue((prevValue) => prevValue + 1);
-        CrComLib.publishEvent('b', '22', true);
-        CrComLib.publishEvent('b', '22', false);
+        volumePlusSignal.setValue(true);
         console.log('volume increased')
 
     }
     const decreaseVolume = () => {
         setSliderValue((prevValue) => prevValue - 1);
-        CrComLib.publishEvent('b', '21', true);
-        CrComLib.publishEvent('b', '21', false);
+        volumeMinSignal.setValue(true)
         console.log('volume decreased')
     }
     const handleSliderChange = (event, newValue) => {
@@ -54,10 +59,10 @@ function Footer() {
     const toggleMute = () => {
         setIsMuted((prevIsMuted) => !(prevIsMuted));
         if (isMuted) {
-            CrComLib.publishEvent('b', '20', false);
+            muteSignal.setValue(false);
             console.log('program unmuted')
         } else{
-            CrComLib.publishEvent('b', '20', true);
+            muteSignal.setValue(true);
             console.log('program muted')
         }
     }
@@ -88,7 +93,9 @@ function Footer() {
                     <Button onClick={toggleMute}>
                         {isMuted ?<VolumeOffSharpIcon/> : <VolumeOffOutlinedIcon />}
                     </Button>
-                    <Button onClick={decreaseVolume}>
+                    <Button 
+                        onTouchStart={decreaseVolume}
+                        onTouchEnd={() => volumeMinSignal.setValue(false)}>
                         <RemoveIcon />
                     </Button>
                     <Slider 
@@ -96,7 +103,9 @@ function Footer() {
                         value={sliderValue}
                         onChange={handleSliderChange}/>
                         
-                    <Button onClick={increaseVolume}>
+                    <Button 
+                        onTouchStart={increaseVolume}
+                        onTouchEnd={() => volumePlusSignal.setValue(false)}>
                         <AddIcon />
                     </Button>
                 </div>
