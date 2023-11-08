@@ -15,10 +15,11 @@ import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import { useState } from "react";
 
 function Footer() {
+    const initialVolume = CrComLib.subscribeState('n', '1', true)
     const [isMuted, setIsMuted] = useState(false);
-    const [sliderValue, setSliderValue] = useState(50);
+    const [sliderValue, setSliderValue] = useState(initialVolume);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    
     const openModal = () => {
       setIsModalOpen(true);
     };
@@ -30,7 +31,7 @@ function Footer() {
     const programShutOff = () => {
         closeModal()
         CrComLib.publishEvent('b', '30', true);
-        window.location.href = './startPage.js'
+        window.location.href = '/startPage.js'
         console.log("program shut off")
     }
     const increaseVolume = () => {
@@ -48,6 +49,7 @@ function Footer() {
     }
     const handleSliderChange = (event, newValue) => {
         setSliderValue(newValue);
+        CrComLib.publishEvent('n', '1', sliderValue)
         
       };
     
