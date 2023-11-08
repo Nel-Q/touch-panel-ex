@@ -16,7 +16,7 @@ function StartPage({ onInitialPageClick }) {
     }
   };
   
-  console.log(typeof(classRoom))
+  console.log(typeof(classRoom.value))
 
   return (
     <div onClick={handleClick} className="StartPage">

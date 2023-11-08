@@ -37,7 +37,7 @@ function Footer() {
     const programShutOff = () => {
         closeModal()
         shutSignal.setValue(true);
-        window.location.href = './startPage.js'
+        window.location.href = '/StartPage.js'
         console.log("program shut off")
     }
     const increaseVolume = () => {

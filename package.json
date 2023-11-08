@@ -5,6 +5,7 @@
   "dependencies": {
     "@crestron/ch5-crcomlib": "^2.5.0",
     "@crestron/ch5-utilities": "^0.1.52",
+    "@crestron/ch5-webxpanel": "^2.6.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.14",
@@ -24,7 +25,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:archive": "ch5-cli archive -p touch-panel-app -P samplesource=ch5-react -d build -o dist",
+    "build:archive": "ch5-cli archive -p touch-panel-app-norgate -P samplesource=ch5-react -d build -o dist",
     "build:onestep": "npm run build && npm run build:archive",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

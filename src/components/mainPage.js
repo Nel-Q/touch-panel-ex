@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as CrComLib from "@crestron/ch5-crcomlib";
 import Header from './Header';
 import './mainPage.css'
-import LaptopIcon from '@mui/icons-mat*erial/Laptop';
+import LaptopIcon from '@mui/icons-material/Laptop';
 import Button from '@mui/material/Button';
 import TabletMacOutlinedIcon from '@mui/icons-material/TabletMacOutlined';
 import { useState } from "react";
