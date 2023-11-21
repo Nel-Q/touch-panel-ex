@@ -17,9 +17,10 @@ import { useState } from "react";
 function Footer() {
     const initialVolume = CrComLib.subscribeState('n', '1', true)
     const [isMuted, setIsMuted] = useState(false);
-    const [sliderValue, setSliderValue] = useState(initialVolume);
+    const [sliderValue, setSliderValue] = useState(parseInt(parseInt(initialVolume)));
     const [isModalOpen, setIsModalOpen] = useState(false);
     
+    // change initial volume from a string to a number
     const openModal = () => {
       setIsModalOpen(true);
     };

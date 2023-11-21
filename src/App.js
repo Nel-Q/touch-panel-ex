@@ -16,7 +16,7 @@ import WebXPanel from "@crestron/ch5-webxpanel";
 // window.bridgeReceiveBooleanFromNative = CrComLib.bridgeReceiveBooleanFromNative;
 // window.bridgeReceiveStringFromNative = CrComLib.bridgeReceiveStringFromNative;
 // window.bridgeReceiveObjectFromNative = CrComLib.bridgeReceiveObjectFromNative;
-window.CrComLib = CrComLib;
+// window.CrComLib = CrComLib;
 window.bridgeReceiveIntegerFromNative = bridgeReceiveIntegerFromNative; 
 window.bridgeReceiveBooleanFromNative = bridgeReceiveBooleanFromNative;
 window.bridgeReceiveStringFromNative = bridgeReceiveStringFromNative;
@@ -25,6 +25,7 @@ window.bridgeReceiveObjectFromNative = bridgeReceiveObjectFromNative;
 const configuration = {
   host: '192.105.110.238', // defaults to window.location.host
   ipId: '4', // string representing a hex value. Might contain "0x" or not. Defaults to "0x03"
+  port:41794
   
 };
 if (WebXPanel.isActive) {
