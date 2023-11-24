@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as CrComLib from "@crestron/ch5-crcomlib";
+import CrComLib from "@crestron/ch5-crcomlib";
 import Header from './Header';
 import './mainPage.css'
 import LaptopIcon from '@mui/icons-material/Laptop';
@@ -15,12 +15,12 @@ function MainPage() {
         if (joinNumber !== inputSelected) {
             if (inputSelected === ''){
                 setInputSelected(joinNumber);
-                CrComLib.publishEvent('b', joinNumber, true);
+                CrComLib.CrComLib.publishEvent('b', joinNumber, true);
                 console.log("signal sent to join number:" + `${joinNumber}`)
             } else {
-                CrComLib.publishEvent('b', inputSelected, false);
+                CrComLib.CrComLib.publishEvent('b', inputSelected, false);
                 setInputSelected(joinNumber);
-                CrComLib.publishEvent('b', joinNumber, true);
+                CrComLib.CrComLib.publishEvent('b', joinNumber, true);
                 console.log("signal sent to join number:" + `${joinNumber}`)
             }
         }

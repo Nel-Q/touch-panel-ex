@@ -1,4 +1,4 @@
-import * as CrComLib from "@crestron/ch5-crcomlib";
+import CrComLib from "@crestron/ch5-crcomlib";
 import './Footer.css'
 import Slider from '@mui/material/Slider';
 import Button from '@mui/material/Button';
@@ -15,7 +15,7 @@ import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import { useState } from "react";
 
 function Footer() {
-    const initialVolume = CrComLib.subscribeState('n', '1', true)
+    const initialVolume = CrComLib.CrComLib.subscribeState('n', '1', true)
     const [isMuted, setIsMuted] = useState(false);
     const [sliderValue, setSliderValue] = useState(parseInt(parseInt(initialVolume)));
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,36 +31,36 @@ function Footer() {
   
     const programShutOff = () => {
         closeModal()
-        CrComLib.publishEvent('b', '30', true);
+        CrComLib.CrComLib.publishEvent('b', '30', true);
         window.location.href = '/startPage.js'
         console.log("program shut off")
     }
     const increaseVolume = () => {
         setSliderValue((prevValue) => prevValue + 1);
-        CrComLib.publishEvent('b', '22', true);
-        CrComLib.publishEvent('b', '22', false);
+        CrComLib.CrComLib.publishEvent('b', '22', true);
+        CrComLib.CrComLib.publishEvent('b', '22', false);
         console.log('volume increased')
 
     }
     const decreaseVolume = () => {
         setSliderValue((prevValue) => prevValue - 1);
-        CrComLib.publishEvent('b', '21', true);
-        CrComLib.publishEvent('b', '21', false);
+        CrComLib.CrComLib.publishEvent('b', '21', true);
+        CrComLib.CrComLib.publishEvent('b', '21', false);
         console.log('volume decreased')
     }
     const handleSliderChange = (event, newValue) => {
         setSliderValue(newValue);
-        CrComLib.publishEvent('n', '1', sliderValue)
+        CrComLib.CrComLib.publishEvent('n', '1', sliderValue)
         
       };
     
     const toggleMute = () => {
         setIsMuted((prevIsMuted) => !(prevIsMuted));
         if (isMuted) {
-            CrComLib.publishEvent('b', '20', false);
+            CrComLib.CrComLib.publishEvent('b', '20', false);
             console.log('program unmuted')
         } else{
-            CrComLib.publishEvent('b', '20', true);
+            CrComLib.CrComLib.publishEvent('b', '20', true);
             console.log('program muted')
         }
     }

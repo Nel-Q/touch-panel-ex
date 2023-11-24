@@ -1,5 +1,5 @@
 import React from 'react';
-import * as CrComLib from "@crestron/ch5-crcomlib";
+import CrComLib from "@crestron/ch5-crcomlib";
 import Header from './Header';
 import './StartPage.css'
 
@@ -8,11 +8,11 @@ function StartPage({ onInitialPageClick }) {
     if (!event.target.classList.contains('startText')) {
       // Trigger the click event for the initial page
       onInitialPageClick();
-      CrComLib.publishEvent('b','1', true);
+      CrComLib.CrComLib.publishEvent('b','1', true);
       console.log("Signal sent to processor");
     }
   };
-  const classRoom = CrComLib.subscribeState('s','1', true);
+  const classRoom = CrComLib.CrComLib.subscribeState('s','1', true);
   console.log(typeof(classRoom))
 
   return (
