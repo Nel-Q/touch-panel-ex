@@ -1,6 +1,7 @@
 import CrComLib from "@crestron/ch5-crcomlib";
 import './App.css';
 import React, { useEffect, useState } from 'react';
+import {Routes, Route, Router} from 'react-router-dom';
 import MainPage from './components/mainPage';
 import StartPage from './components/StartPage';
 import { getWebXPanel, runsInContainerApp } from '@crestron/ch5-webxpanel'; 
@@ -13,14 +14,46 @@ window.CrComLib = CrComLib.CrComLib;
 // Initialize the WebSocket when the application starts
 
 const { WebXPanel, isActive, WebXPanelConfigParams, WebXPanelEvents } = getWebXPanel(!runsInContainerApp());
-if (WebXPanel.isActive) {
-  WebXPanelConfigParams.host = '192.105.110.238';
+if (isActive) {
+  WebXPanelConfigParams.host = '129.105.110.238';
   WebXPanelConfigParams.ipId = "4";
-  // Removed the port = 41794, because that is not the websocket port
+  
   WebXPanel.initialize(WebXPanelConfigParams);
 }
 
+
 function App() {
+
+  useEffect(() => {
+
+    window.addEventListener(WebXPanelEvents.CONNECT_WS, (detail) => {
+      console.log(`WebXPanel websocket connection event: ${JSON.stringify(detail)}`);
+    });
+ 
+    window.addEventListener(WebXPanelEvents.ERROR_WS, (detail) => {
+      console.log(`WebXPanel websocket error event: ${JSON.stringify(detail)}`);
+    });
+ 
+    window.addEventListener(WebXPanelEvents.CONNECT_CIP, (detail) => {
+      console.log(`WebXPanel CIP connection event: ${JSON.stringify(detail)}`);
+    });
+ 
+    window.addEventListener(WebXPanelEvents.AUTHENTICATION_FAILED, (detail) => {
+      console.log(`WebXPanel authentication failed event: ${JSON.stringify(detail)}`);
+    });
+ 
+    window.addEventListener(WebXPanelEvents.NOT_AUTHORIZED, (detail) => {
+      console.log(`WebXPanel not authorized event event: ${JSON.stringify(detail)}`);
+    });
+ 
+    window.addEventListener(WebXPanelEvents.DISCONNECT_CIP, (detail) => {
+      console.log(`WebXPanel CIP disconnection event: ${JSON.stringify(detail)}`);
+    });
+ 
+    window.addEventListener(WebXPanelEvents.DISCONNECT_WS, (detail) => {
+      console.log(`WebXPanel websocket disconnection event: ${JSON.stringify(detail)}`);
+    });
+  }, []);
   const [initialPageClicked, setInitialPageClicked] = useState(false);
 
   const handleInitialPageClick = () => {
@@ -29,9 +62,13 @@ function App() {
   
   return (
     <div className="App">
-      {!initialPageClicked ? (<StartPage onInitialPageClick={handleInitialPageClick} />) : 
-        (<MainPage />)}
-
+      
+      <Routes>
+        <Route path="/" element={<StartPage/>}/>
+        <Route path="/mainPage" element={<MainPage/>}/>
+      </Routes>
+      
+    
     </div>
   );
 }

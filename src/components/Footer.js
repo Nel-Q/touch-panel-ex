@@ -12,15 +12,19 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import VolumeOffSharpIcon from '@mui/icons-material/VolumeOffSharp';
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 function Footer() {
-    const initialVolume = CrComLib.CrComLib.subscribeState('n', '1', true)
     const [isMuted, setIsMuted] = useState(false);
-    const [sliderValue, setSliderValue] = useState(parseInt(parseInt(initialVolume)));
+    const [sliderValue, setSliderValue] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
     
     // change initial volume from a string to a number
+    useEffect(() => {
+        window.CrComLib.subscribeState('n', '1', value=> setSliderValue(value))
+    }, [])
     const openModal = () => {
       setIsModalOpen(true);
     };
@@ -31,36 +35,37 @@ function Footer() {
   
     const programShutOff = () => {
         closeModal()
-        CrComLib.CrComLib.publishEvent('b', '30', true);
-        window.location.href = '/startPage.js'
+        window.CrComLib.publishEvent('b', '30', true);
+        window.CrComLib.publishEvent('b', '30', false);
+        navigate('/');
         console.log("program shut off")
     }
     const increaseVolume = () => {
         setSliderValue((prevValue) => prevValue + 1);
-        CrComLib.CrComLib.publishEvent('b', '22', true);
-        CrComLib.CrComLib.publishEvent('b', '22', false);
+        window.CrComLib.publishEvent('b', '22', true);
+        window.CrComLib.publishEvent('b', '22', false);
         console.log('volume increased')
 
     }
     const decreaseVolume = () => {
         setSliderValue((prevValue) => prevValue - 1);
-        CrComLib.CrComLib.publishEvent('b', '21', true);
-        CrComLib.CrComLib.publishEvent('b', '21', false);
+        window.CrComLib.publishEvent('b', '21', true);
+        window.CrComLib.publishEvent('b', '21', false);
         console.log('volume decreased')
     }
     const handleSliderChange = (event, newValue) => {
         setSliderValue(newValue);
-        CrComLib.CrComLib.publishEvent('n', '1', sliderValue)
+        window.CrComLib.publishEvent('n', '1', sliderValue)
         
       };
     
     const toggleMute = () => {
         setIsMuted((prevIsMuted) => !(prevIsMuted));
         if (isMuted) {
-            CrComLib.CrComLib.publishEvent('b', '20', false);
+            window.CrComLib.publishEvent('b', '20', false);
             console.log('program unmuted')
         } else{
-            CrComLib.CrComLib.publishEvent('b', '20', true);
+            window.CrComLib.publishEvent('b', '20', true);
             console.log('program muted')
         }
     }
@@ -88,8 +93,8 @@ function Footer() {
             <div className="PgmVolumeContainer">
                 <p>Volume</p>
                 <div className="PgmVolume">
-                    <Button onClick={toggleMute}>
-                        {isMuted ?<VolumeOffSharpIcon/> : <VolumeOffOutlinedIcon />}
+                    <Button onClick={toggleMute} className="muteButton" >
+                        {isMuted ?<VolumeOffSharpIcon sx={{fontSize:40}}/> : <VolumeOffOutlinedIcon sx={{fontSize:40}}/>}
                     </Button>
                     <Button onClick={decreaseVolume}>
                         <RemoveIcon />

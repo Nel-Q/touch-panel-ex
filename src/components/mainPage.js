@@ -15,12 +15,12 @@ function MainPage() {
         if (joinNumber !== inputSelected) {
             if (inputSelected === ''){
                 setInputSelected(joinNumber);
-                CrComLib.CrComLib.publishEvent('b', joinNumber, true);
+                window.CrComLib.publishEvent('b', joinNumber, true);
                 console.log("signal sent to join number:" + `${joinNumber}`)
             } else {
-                CrComLib.CrComLib.publishEvent('b', inputSelected, false);
+                window.CrComLib.publishEvent('b', joinNumber, false);
                 setInputSelected(joinNumber);
-                CrComLib.CrComLib.publishEvent('b', joinNumber, true);
+                window.CrComLib.publishEvent('b', joinNumber, true);
                 console.log("signal sent to join number:" + `${joinNumber}`)
             }
         }
