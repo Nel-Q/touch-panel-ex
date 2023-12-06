@@ -37,7 +37,7 @@ function Footer() {
         closeModal()
         window.CrComLib.publishEvent('b', '30', true);
         window.CrComLib.publishEvent('b', '30', false);
-        navigate('/index.html');
+        navigate('/');
         console.log("program shut off")
     }
     const increaseVolume = () => {
