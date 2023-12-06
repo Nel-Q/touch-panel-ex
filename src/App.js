@@ -64,7 +64,7 @@ function App() {
     <div className="App">
       
       <Routes>
-        <Route path="/" element={<StartPage/>}/>
+        <Route path="/index.html" element={<StartPage/>}/>
         <Route path="/mainPage" element={<MainPage/>}/>
       </Routes>
       

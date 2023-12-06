@@ -12,15 +12,21 @@ function MainPage() {
     const [inputSelected, setInputSelected] = useState('');
     
     const handleInputSelected =(joinNumber) => {
+        // setInputSelected(joinNumber);
+        // window.CrComLib.publishEvent('b', joinNumber, true);
+        // window.CrComLib.publishEvent('b', joinNumber, false);
+        // console.log("signal sent to join number:" + `${joinNumber}`)
         if (joinNumber !== inputSelected) {
             if (inputSelected === ''){
                 setInputSelected(joinNumber);
                 window.CrComLib.publishEvent('b', joinNumber, true);
+                window.CrComLib.publishEvent('b', joinNumber, false);
                 console.log("signal sent to join number:" + `${joinNumber}`)
             } else {
-                window.CrComLib.publishEvent('b', joinNumber, false);
+                console.log('transfering signal from:' +`${inputSelected}`+ 'to' + `${joinNumber}` )
                 setInputSelected(joinNumber);
                 window.CrComLib.publishEvent('b', joinNumber, true);
+                window.CrComLib.publishEvent('b', joinNumber, false);
                 console.log("signal sent to join number:" + `${joinNumber}`)
             }
         }

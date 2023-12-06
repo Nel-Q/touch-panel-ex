@@ -37,7 +37,7 @@ function Footer() {
         closeModal()
         window.CrComLib.publishEvent('b', '30', true);
         window.CrComLib.publishEvent('b', '30', false);
-        navigate('/');
+        navigate('/index.html');
         console.log("program shut off")
     }
     const increaseVolume = () => {
@@ -100,7 +100,7 @@ function Footer() {
                         <RemoveIcon />
                     </Button>
                     <Slider 
-                        sx={{width:80}}
+                        sx={{width:100}}
                         value={sliderValue}
                         onChange={handleSliderChange}/>
                         
